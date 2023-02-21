@@ -98,6 +98,84 @@ order by name desc
 
 
  
+@frappe.whitelist()
+def get_taxdetails(ids):
+	url = 'http://209.182.239.212:1061/api/invoice'
+	ref=''
+	invoicecategory='Tax Invoice'
+	po = frappe.db.get_value("Sales Invoice", {"name": ids}, ["*"], as_dict=1)
+	sach = frappe.db.get_list("Sales Invoice Item", {"parent": ids}, ["*"])
+	tax = frappe.db.get_value("Sales Taxes and Charges", {"parent": ids}, ["*"], as_dict=1)
+	if po.is_return:
+		invoicecategory="Credit Note"
+	elif po.is_debit_note:
+		invoicecategory="Debit Note"
+		ref=po.return_against
+	else:
+		invoiceCategory="Tax Invoice"
+	hea, sep, tail = str(po.get("posting_time")).partition('.')
+	data = {
+    "Invoice": {
+        "SenderId": "c8ae9218bcde687ff24b",
+        "InvoiceTimestamp":"{}T{}".format(po.get("posting_date"), hea),
+        "InvoiceCategory": invoicecategory,
+        "TraderSystemInvoiceNumber": ids,
+        "RelevantInvoiceNumber": ref or "",
+        "PINOfBuyer": po.get("tax_id"),
+        "Discount": po.get("total_discount",0),
+        "InvoiceType": "Original",
+        "TotalInvoiceAmount": po.get("grand_total"),
+        "TotalTaxableAmount": po.get("total"),
+        "TotalTaxAmount": tax.get("tax_amount", 0), 
+        "ExemptionNumber": "",
+        "ItemDetails": [
+            {
+                "HSDesc": d.get("item_name"),
+                "TaxRate": tax.get("rate", 0),
+                "ItemAmount": d.get("amount"),
+                "TaxAmount": round(d.get("amount") * (tax.get("rate", 0) / 100), 2),
+                "TransactionType": "1",
+                "UnitPrice": d.get("price_list_rate"),
+                "HSCode": d.get("hs_code"),
+                "Quantity": d.get("qty")
+            }
+            for d in sach
+        ]
+    }
+	}
+	headers = {
+    'Content-Type': 'application/json'
+	}
+
+	response = requests.post(url, json=data, headers=headers)
+	return data
+	result = response.text
+	y = json.loads(result)
+	if 'Invoice' in y :
+		qrc = y['Invoice']['QRCode']
+	else:
+		qrc = y['Existing']['QRCode']
+	img = qrcode.make(qrc)
+	file_name = "/home/frappe/frappe-bench/sites/keniya/public/files/{}.png".format(po.get("name"))
+	img.save(file_name)
+	#po['qrc'] = qrc
+	frappe.db.sql("""update `tabSales Invoice`  set qrcode=%(qrcode)s  where
+	 name = %(ids)s 
+
+	""" , {
+			 
+			"qrcode": qrc,
+			"ids": ids
+			
+		} ,as_dict=False)
+	#frappe.db.set_value('Sales Invoice', ids, 'qrcode', qrc)
+	return data
+
+ 
+
+ 
+
+ 
 
  
 
