@@ -367,10 +367,10 @@ def get_conditions(filters):
 		sup = frappe.db.get_list("Item Supplier", {"supplier":filters.get("supplier")}, ["parent"])
 		hh=0
 		for sut in sup:
-			itm='item_code'.hh
+			itm='item_code'+str(hh)
 			filters[itm]=sut.parent
 			conditions += """and ifnull(`tabSales Invoice Item`.item_code, '') = %(itm)s"""
-			hh++
+			hh=hh+1
 
 	if filters.get("item_group"):
 		conditions += """and ifnull(`tabSales Invoice Item`.item_group, '') = %(item_group)s"""
