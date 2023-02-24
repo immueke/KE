@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px;\\\"><b>Reports &amp; Masters</b></span>\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Accounting Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Payroll Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"l9MF-F4uEY\",\"type\":\"header\",\"data\":{\"text\":\"<span style=\\\"font-size: 18px;\\\"><b>Reports &amp; Masters</b></span>\",\"col\":12}},{\"id\":\"lRaisivhma\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounting Reports\",\"col\":4}},{\"id\":\"HIgx1D0sOa\",\"type\":\"card\",\"data\":{\"card_name\":\"Payroll Reports\",\"col\":4}}]",
  "creation": "2022-11-03 16:41:03.405594",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -8,6 +8,7 @@
  "hide_custom": 0,
  "icon": "file",
  "idx": 0,
+ "is_hidden": 0,
  "label": "Kenya",
  "links": [
   {
@@ -82,19 +83,9 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Accounting Reports",
-   "link_count": 2,
+   "link_count": 3,
    "onboard": 0,
    "type": "Card Break"
-  },
-     {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Item Wise Sales Supplier",
-   "link_count": 0,
-   "link_to": "Item-wise Sales Supplier",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
   },
   {
    "hidden": 0,
@@ -115,9 +106,19 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Wise Sales Supplier",
+   "link_count": 0,
+   "link_to": "Item-wise Sales Supplier",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-11-04 08:46:10.431488",
+ "modified": "2023-02-24 12:04:38.323515",
  "modified_by": "Administrator",
  "module": "CSF KE",
  "name": "Kenya",
