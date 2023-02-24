@@ -86,6 +86,16 @@
    "onboard": 0,
    "type": "Card Break"
   },
+     {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Item Wise Sales Supplier",
+   "link_count": 0,
+   "link_to": "Item-wise Sales Supplier",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
   {
    "hidden": 0,
    "is_query_report": 1,
