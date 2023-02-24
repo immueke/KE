@@ -364,9 +364,13 @@ def get_conditions(filters):
 	if filters.get("brand"):
 		conditions += """and ifnull(`tabSales Invoice Item`.brand, '') = %(brand)s"""
 	if filters.get("supplier"):
-		sup = frappe.db.get_value("Item Supplier", {"supplier":filters.get("supplier")}, ["parent"], as_dict=1)
-		filters['item_code']=sup.parent
-		conditions += """and ifnull(`tabSales Invoice Item`.item_code, '') = %(item_code)s"""
+		sup = frappe.db.get_list("Item Supplier", {"supplier":filters.get("supplier")}, ["parent"])
+		hh=0
+		for sut in sup:
+			itm='item_code'.hh
+			filters[itm]=sut.parent
+			conditions += """and ifnull(`tabSales Invoice Item`.item_code, '') = %(itm)s"""
+			hh++
 
 	if filters.get("item_group"):
 		conditions += """and ifnull(`tabSales Invoice Item`.item_group, '') = %(item_group)s"""
