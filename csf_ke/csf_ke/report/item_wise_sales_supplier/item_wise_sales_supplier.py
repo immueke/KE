@@ -188,8 +188,9 @@ def get_columns(additional_table_columns, filters):
 		)
 
 	columns.extend(
-		{"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 120},
-		[ {"label": _("Batch No"), "fieldname": "batch_no", "fieldtype": "Link", 
+		
+		[ {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 120},
+			{"label": _("Batch No"), "fieldname": "batch_no", "fieldtype": "Link", 
                 "options": "Batch","width": 120},
                 {"label": _("Exp Date"), "fieldname": "exp_date", "fieldtype": "Data" 
                 ,"width": 120},
