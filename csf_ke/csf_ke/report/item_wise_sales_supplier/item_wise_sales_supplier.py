@@ -60,10 +60,10 @@ def _execute(filters=None, additional_table_columns=None, additional_query_colum
 
 		row = {
 			"item_code": d.item_code,
-			"item_name": item_record.item_name if item_record else d.item_name,
+			
            
 			"item_group": item_record.item_group if item_record else d.item_group,
-            
+            "item_name": item_record.item_name if item_record else d.item_name,
              "batch_no": d.batch_no,
             "exp_date": d.exp_date,
             "supplier": po.supplier or '',
@@ -169,7 +169,7 @@ def get_columns(additional_table_columns, filters):
 					"options": "Item",
 					"width": 120,
 				},
-				{"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 120},
+				
                
 			]
 		)
@@ -188,6 +188,7 @@ def get_columns(additional_table_columns, filters):
 		)
 
 	columns.extend(
+		{"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 120},
 		[ {"label": _("Batch No"), "fieldname": "batch_no", "fieldtype": "Link", 
                 "options": "Batch","width": 120},
                 {"label": _("Exp Date"), "fieldname": "exp_date", "fieldtype": "Data" 
