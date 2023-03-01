@@ -171,13 +171,14 @@ def get_taxdetails(ids):
 	#frappe.db.set_value('Sales Invoice', ids, 'qrcode', qrc)
 	return data
 @frappe.whitelist()
-def get_picklist(ids,batch_no): 
-	frappe.db.sql("""update `tabPick List Item`  set batch_no=%(batch_no)s  where
+def get_picklist(ids,batch_no,exp_date): 
+	frappe.db.sql("""update `tabPick List Item`  set batch_no=%(batch_no)s , exp_date=%(exp_date)s  where
 	 name = %(ids)s 
 
 	""" , {
 			 
 			"batch_no": batch_no,
+		        "exp_date": exp_date,
 			"ids": ids
 			
 		} ,as_dict=False) 
