@@ -184,7 +184,17 @@ def get_picklist(ids,batch_no):
 			
 		} ,as_dict=False) 
 
- 
+	sales_order = frappe.db.get_value('Pick List Item', ids, 'sales_order')
+	frappe.db.sql("""update `tabSales Order Item`  set batch_no=%(batch_no)s , exp_date=%(exp_date)s  where
+	 parent = %(sales_order)s 
+
+	""" , {
+			 
+			"batch_no": batch_no,
+		        "exp_date": po.expiry_date,
+			"sales_order": sales_order
+			
+		} ,as_dict=False) 
 
  
 
